@@ -1,0 +1,31 @@
+{
+  "visible_filenames": [
+    "cyber-dojo.sh",
+    "end_to_end.tests.cpp",
+    "instructions",
+    "makefile",
+    "mileage_claim.cpp",
+    "mileage_claim.hpp",
+    "shouty_report_job.cpp",
+    "shouty_report_processor.cpp",
+    "shouty_report_processor.hpp",
+    "test_case_1_expected.output",
+    "test_case_1_input.csv",
+    "test_case_2_expected.output",
+    "test_case_2_input.csv",
+    "unit.tests.cpp",
+    "zzz_DONT_READ_ME.cpp",
+    "zzz_DONT_READ_ME.hpp"
+  ],
+  "display_name": "C++ (g++), assert",
+  "image_name": "cyberdojofoundation/gpp_assert",
+  "red_amber_green": [
+    "lambda { |output|",
+    "  return :red   if /(.*)Assertion(.*)failed./.match(output)",
+    "  return :green if /(All|\\d*) tests passed/.match(output)",
+    "  return :amber",
+    "}"
+  ],
+  "filename_extension": ".cpp",
+  "tab_size": 4
+}
