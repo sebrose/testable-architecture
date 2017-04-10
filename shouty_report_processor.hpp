@@ -3,6 +3,7 @@
 
 #include "mileage_claim.hpp"
 #include "shouty_stats_service.hpp"
+#include <memory>
 #include <vector>
 
 class shouty_report_processor
