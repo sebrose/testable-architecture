@@ -16,7 +16,7 @@ public:
 private:
     std::string sales_person_name;
     int miles;
-	int customer_id;
+    int customer_id;
 };
 
 
