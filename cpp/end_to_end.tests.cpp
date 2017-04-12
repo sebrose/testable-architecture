@@ -24,7 +24,6 @@ namespace {
 int run(const string & input_filename, string environment_variables = string())
 {
     environment_variables += string(" ENVIRONMENT_VARIABLE=value");
-
     string command = environment_variables + " ./shouty_report_job " 
         + input_filename;
     return system(command.c_str());
@@ -33,7 +32,7 @@ int run(const string & input_filename, string environment_variables = string())
 struct line
 {
     string value;
-	operator string() const 
+    operator string() const
     { 
         return value; 
     } 
