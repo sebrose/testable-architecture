@@ -1,5 +1,5 @@
-#ifndef SHOUTY_REPORT_PROCESSOR
-#define SHOUTY_REPORT_PROCESSOR
+#ifndef SHOUTY_REPORT_PROCESSOR_INCLUDED
+#define SHOUTY_REPORT_PROCESSOR_INCLUDED
 
 #include "mileage_claim.hpp"
 #include "shouty_stats_service.hpp"
