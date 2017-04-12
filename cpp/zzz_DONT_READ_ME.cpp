@@ -32,7 +32,7 @@ shouty_stats_service::shouty_stats_service()
          double random_revenue = revenue_distribution(generator) / 100.0;
          revenue_by_customer_id.insert({
              customer_id_distribution(generator), 
-		 	 to_string(random_revenue)
+             to_string(random_revenue)
          });
      }
  }
