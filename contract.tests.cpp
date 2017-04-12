@@ -3,6 +3,8 @@
 
 namespace {
 
+// Your contract tests will go here
+
 } // namespace
 
 

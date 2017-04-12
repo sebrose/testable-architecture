@@ -2,7 +2,6 @@
 #define MILEAGE_CLAIM_INCLUDED
 
 #include <string>
-#include <iosfwd>
 
 class mileage_claim
 {
@@ -16,7 +15,5 @@ private:
     int miles_;
     int customer_id_;
 };
-
-std::ostream & operator<<(std::ostream &, const mileage_claim &);
 
 #endif

@@ -1,61 +1,96 @@
-
+#include <algorithm>
 #include <cassert>
 #include <cstdlib>
-#include <iostream>
 #include <fstream>
+#include <iostream>
+#include <iterator>
 #include <vector>
-#include <algorithm>
+
+using std::back_inserter;
+using std::cerr;
+using std::copy;
+using std::cout;
+using std::endl;
+using std::getline;
+using std::ifstream;
+using std::istream;
+using std::istream_iterator;
+using std::string;
+using std::system;
+using std::vector;
 
 namespace {
 
-int run(std::string input_filename, std::string environment_variables = std::string())
+int run(const string & input_filename, string environment_variables = string())
 {
-  environment_variables += std::string(" ENVIRONMENT_VARIABLE=value");
+    environment_variables += string(" ENVIRONMENT_VARIABLE=value");
 
-  std::string command = environment_variables + std::string(" ./shouty_report_job ") + input_filename;
-  return system(command.c_str());
+    string command = environment_variables + " ./shouty_report_job " 
+        + input_filename;
+    return system(command.c_str());
 }
 
-std::vector<std::string> read_lines(const char * filename)
+struct line
 {
-    std::vector<std::string> lines;
-    std::ifstream ifs(filename);
-    while (ifs.peek() != std::ifstream::traits_type::eof())
-    {
-        std::string line;
-        std::getline(ifs, line);
-        lines.push_back(line);
-    }
+    string value;
+	operator string() const 
+    { 
+        return value; 
+    } 
+};
+    
+istream & operator>>(istream & is, line & in)
+{   
+    return getline(is, in.value);
+}
+    
+vector<string> read_file(const char * filename)
+{    
+    vector<string> lines;
+    ifstream ifs(filename);
+    copy(istream_iterator<line>(ifs), {}, back_inserter(lines));
     return lines;
 }
 
+void print_file(const char * ae, 
+                const char * filename, 
+                const vector<string> & lines)
+{
+    cerr << endl;
+    cerr << ae << "_filename: " << filename << endl;
+    cerr << ae << "_filename.line_count: " << lines.size() << endl;
+    cerr << ae << "..." << endl;
+    for (auto & line : lines)
+        cerr << "    " << line << endl;    
+    cerr << endl;
+}
+    
 void assert_equal_files(
     const char * test_name,
     const char * expected_filename,
     const char * actual_filename)
-{
-    std::vector<std::string> expected = read_lines(expected_filename);
-    std::vector<std::string> actual = read_lines(actual_filename);
-
-    if (expected.size() != actual.size())
-    {
-        std::cerr << test_name
-            << " Linecount error - expected : " << expected.size()
-            << ", actual: " << actual.size() << std::endl;
+{    
+    vector<string> expected = read_file(expected_filename);
+    vector<string>   actual = read_file(  actual_filename);
+    if (expected.size() != actual.size()) 
+    {    
+        cerr << test_name << std::endl;
+        print_file("expected", expected_filename, expected);
+        print_file(  "actual",   actual_filename,   actual);        
         assert(false);
     }
 
     for (size_t i = 0; i != expected.size(); ++i)
     {
-        const std::string lhs = expected[i];
-        const std::string rhs = actual[i];
+        const string lhs = expected[i];
+        const string rhs =   actual[i];
         if (lhs != rhs)
         {
-            std::cerr  << test_name << std::endl
-                << " Expected: '" << expected.size() << "'" << std::endl
-                << " Actual:   '" << actual.size() << "'" << std::endl;
-            std::cerr << "expected[" << i << "] == :" << lhs << ':' << std::endl;
-            std::cerr << "  actual[" << i << "] == :" << rhs << ':' << std::endl;
+            cerr << test_name << endl;
+            cerr << "expected_filename: " << expected_filename << endl;
+            cerr << "  actual_filename: " <<   actual_filename << endl;
+            cerr << "expected[" << i << "] == :" << lhs << ':' << endl;
+            cerr << "  actual[" << i << "] == :" << rhs << ':' << endl;
             assert(false);
         }
     }
@@ -67,7 +102,7 @@ void single_sales_person()
     assert(system("test -e ./report.xml") == 0);
     const char * expected_filename = "test_case_1_expected.xml";
     const char * actual_filename = "report.xml";
-    assert_equal_files("single_sales_person", expected_filename, actual_filename);
+    assert_equal_files(__FUNCTION__, expected_filename, actual_filename);
 }
 
 void multiple_sales_people()
@@ -76,7 +111,7 @@ void multiple_sales_people()
     assert(system("test -e ./report.xml") == 0);
     const char * expected_filename = "test_case_2_expected.xml";
     const char * actual_filename = "report.xml";
-    assert_equal_files("multiple_sales_people", expected_filename, actual_filename);
+    assert_equal_files(__FUNCTION__, expected_filename, actual_filename);
 }
 
 } // namespace
@@ -85,5 +120,6 @@ int main()
 {
     single_sales_person();
     multiple_sales_people();
-    std::cout << "tests (end2end) passed" << std::endl;
+
+    cout << "tests (end2end) passed" << endl;
 }
