@@ -1,29 +1,25 @@
 #include "fake_stats_service.hpp"
 #include "shouty_stats_service_exception.hpp"
+#include <sstream>
 #include <vector>
 
 using std::string;
 using std::stod;
 using std::stoi;
+using std::stringstream;
 using std::to_string;
 using std::vector;
 
 namespace {
     
-vector<string> split(const string & s, char c)
+vector<string> split(const string & s, char delimiter)
 {
     vector<string> tuples;
-    string::size_type i = 0;
-    string::size_type j = s.find(c);
-    while (j != string::npos)
+    stringstream ss(s);
+    string token;
+    while (getline(ss, token, delimiter))
     {
-        tuples.push_back(s.substr(i, j-i));
-        i = ++j;
-        j = s.find(c, j);
-    }
-    if (j == string::npos && i != s.length())
-    {
-        tuples.push_back(s.substr(i, s.length()));
+        tuples.push_back(token);
     }
     return tuples;
 }
