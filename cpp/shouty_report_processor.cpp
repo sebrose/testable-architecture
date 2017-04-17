@@ -1,5 +1,5 @@
 #include "shouty_report_processor.hpp"
-#include "tinyxml2.hpp"
+#include <tinyxml2.hpp>
 #include <iomanip>
 #include <sstream>
 #include <string>

@@ -29,13 +29,11 @@
     "test_case_1_input.csv",
     "test_case_2_expected.xml",
     "test_case_2_input.csv",
-    "tinyxml2.cpp",
-    "tinyxml2.hpp",
     "unit.tests.cpp",
     "zzz_DONT_READ_ME.cpp"
   ],
   "display_name": "C++ (g++), assert",
-  "image_name": "cyberdojofoundation/gpp_assert",
+  "image_name": "cyberdojofoundation/gpp_assert_tinyxml",
   "filename_extension": ".cpp",
   "tab_size": 4
 }

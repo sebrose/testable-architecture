@@ -3,8 +3,8 @@ CXXFLAGS += -I. -std=c++14 -Wall -Wextra -Werror
 #- - - - - - - - - - - - - - - - - - - - - -
 
 TINYXML2_DEPENDENTS = \
-	tinyxml2.cpp \
-	tinyxml2.hpp
+	/usr/local/src/tinyxml2.cpp \
+	/usr/local/include/tinyxml2.hpp
 
 tinyxml2.o: $(TINYXML2_DEPENDENTS)
 	g++ ${CXXFLAGS} -c $<
@@ -82,8 +82,7 @@ PRODUCTION_STATS_SERVICE_DEPENDENTS = \
 	production_stats_service.cpp \
 	production_stats_service.hpp \
 	stats_service.hpp \
-	shouty_stats_service.hpp \
-	tinyxml2.hpp
+	shouty_stats_service.hpp
 
 production_stats_service.o: $(PRODUCTION_STATS_SERVICE_DEPENDENTS)
 	g++ ${CXXFLAGS} -c $<
@@ -105,8 +104,7 @@ shouty_report_processor.o: $(SHOUTY_REPORT_PROCESSOR_DEPENDENTS)
 SHOUTY_STATS_SERVICE_DEPENDENTS = \
 	zzz_DONT_READ_ME.cpp \
 	shouty_stats_service.hpp \
-	shouty_stats_service_exception.hpp \
-	tinyxml2.hpp
+	shouty_stats_service_exception.hpp
 
 shouty_stats_service.o: $(SHOUTY_STATS_SERVICE_DEPENDENTS)
 	g++ ${CXXFLAGS} -o $@ -c $<
