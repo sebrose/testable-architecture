@@ -1,0 +1,28 @@
+{
+  "visible_filenames": [
+    "ContractTests.cs",
+    "cyber-dojo.sh",
+    "EcoStat.cs",
+    "EcoStatBuilder.cs",
+    "EndToEndTests.cs",
+    "FakeStatsBuilder.cs",
+    "FakeStatsService.cs",
+    "IStatsService.cs",
+    "MileageClaim.cs",
+    "MileageClaimBuilder.cs",
+    "ProductionStatsService.cs",
+    "ShoutyReportJob.cs",
+    "ShoutyReportProcessor.cs",
+    "ShoutyStatsServiceException.cs",
+    "test_case_1_expected.xml",
+    "test_case_1_input.csv",
+    "test_case_2_expected.xml",
+    "test_case_2_input.csv",
+    "UnitTests.cs",
+    "zzz_DoNotReadMe.cs"
+  ],
+  "display_name": "C#, NUnit",
+  "image_name": "cyberdojofoundation/csharp_nunit",
+  "filename_extension": ".cs",
+  "tab_size": 4
+}

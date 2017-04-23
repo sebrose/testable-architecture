@@ -1,0 +1,28 @@
+{
+  "visible_filenames": [
+    "ContractTests.java",
+    "cyber-dojo.sh",
+    "EcoStat.java",
+    "EcoStatBuilder.java",
+    "EndToEndTests.java",
+    "FakeStatsBuilder.java",
+    "FakeStatsService.java",
+    "StatsService.java",
+    "MileageClaim.java",
+    "MileageClaimBuilder.java",
+    "ProductionStatsService.java",
+    "ShoutyReportJob.java",
+    "ShoutyReportProcessor.java",
+    "ShoutyStatsServiceException.java",
+    "test_case_1_expected.xml",
+    "test_case_1_input.csv",
+    "test_case_2_expected.xml",
+    "test_case_2_input.csv",
+    "UnitTests.java",
+    "zzz_DoNotReadMe.java"
+  ],
+  "display_name": "Java, JUnit",
+  "image_name": "cyberdojofoundation/java_junit",
+  "filename_extension": ".java",
+  "tab_size": 4
+}
