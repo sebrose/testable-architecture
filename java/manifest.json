@@ -14,6 +14,7 @@
     "ShoutyReportJob.java",
     "ShoutyReportProcessor.java",
     "ShoutyStatsServiceException.java",
+    "XmlHelper.java",
     "test_case_1_expected.xml",
     "test_case_1_input.csv",
     "test_case_2_expected.xml",
