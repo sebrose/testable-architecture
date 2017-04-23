@@ -6,6 +6,7 @@
 #include <iomanip>
 
 using tinyxml2::XMLDocument;
+using tinyxml2::XMLElement;
 using std::getenv;
 using std::stoi;
 using std::string;
@@ -23,6 +24,8 @@ shouty_stats_service::shouty_stats_service()
         { 22, "123456.78" },
         { 57, "123456.78" }
       })
+    , latest_eco_stats_month(0)
+    , latest_eco_stats_year(0)
 {
   if (getenv("VOLATILE_STATS_DATA") != NULL)
   {
@@ -31,7 +34,7 @@ shouty_stats_service::shouty_stats_service()
      {
          double random_revenue = revenue_distribution(generator) / 100.0;
          revenue_by_customer_id.insert({
-             customer_id_distribution(generator), 
+             customer_id_distribution(generator),
              to_string(random_revenue)
          });
      }
@@ -40,7 +43,7 @@ shouty_stats_service::shouty_stats_service()
 
 std::string shouty_stats_service::get_revenue_for_customer(int customer_id) const
 {
-    check_service_connection();    
+    check_service_connection();
     auto pos = revenue_by_customer_id.find(customer_id);
     if (pos == revenue_by_customer_id.end())
     {
@@ -49,6 +52,7 @@ std::string shouty_stats_service::get_revenue_for_customer(int customer_id) cons
             + "'");
         throw shouty_stats_service_exception(message);
     }
+
     stringstream response;
     response << "<CustomerStats id=\""
              << customer_id
@@ -89,52 +93,67 @@ std::string shouty_stats_service::is_valid_customer(const std::string & customer
 
 std::string shouty_stats_service::get_latest_eco_stats_date() const
 {
-    stringstream response;
-    response << "<LatestEcoStatsDate year=\""
-             << latestEcoStatsYear
-             << "\" month=\""
-             << latestEcoStatsMonth
-             << "\" />";
-    return response.str();
+  std::stringstream response;
+
+  response
+    << "<LatestEcoStatsDate year=\""
+    << latest_eco_stats_year
+    << "\" month=\""
+    << latest_eco_stats_month
+    << "\" />";
+
+  return response.str();
 }
 
-void shouty_stats_service::set_eco_stats(const std::string & eco_stats_xml)
+void shouty_stats_service::set_eco_stats(const std::string& eco_stats_xml)
 {
     XMLDocument request;
     request.Parse(eco_stats_xml.c_str());
-    int month = stoi(request.FirstChildElement("Date")->Attribute("month"));
-    int  year = stoi(request.FirstChildElement("Date")->Attribute("year"));
+    XMLElement* root = request.FirstChildElement("EcoStats");
+    int month = stoi(root->Attribute("month"));
+    int year = stoi(root->Attribute("year"));
+
     auto key = create_key(year, month);
-    if (year < latestEcoStatsYear ||
-            (year == latestEcoStatsYear && month < latestEcoStatsMonth))
+
+    if (year < latest_eco_stats_year ||
+            (year == latest_eco_stats_year && month < latest_eco_stats_month))
     {
         throw new shouty_stats_service_exception("EcoStats for a later month have already been set");
     }
-    store_eco_stats(key, request);
-    latestEcoStatsYear = year;
-    latestEcoStatsMonth = month;
+
+    store_eco_stats(key, root->FirstChildElement("EcoStat"));
+
+    latest_eco_stats_year = year;
+    latest_eco_stats_month = month;
 }
 
-std::string shouty_stats_service::get_eco_stats_winner_for(const std::string & dateXml) const
+std::string shouty_stats_service::get_eco_stats_winner_for(
+    const std::string& dateXml) const
 {
-    string winnersName = "Nobody";
-    // double winning_revenue_per_mile = 0;
+    std::string winnersName = "Nobody";
+    double winning_revenue_per_mile = 0;
+
     XMLDocument request;
     request.Parse(dateXml.c_str());
-    int month = stoi(request.FirstChildElement("Date")->Attribute("month"));
-    int  year = stoi(request.FirstChildElement("Date")->Attribute("year"));
+    int month = atoi(request.FirstChildElement("EcoStats")->Attribute("month"));
+    int year = atoi(request.FirstChildElement("EcoStats")->Attribute("year"));
+
     auto key = create_key(year, month);
 
-    // for (auto && stat : eco_stats_store.find[key])
-    // {
-    //     if (stat.Value > winningRevenuePerMile)
-    //     {
-    //         winnersName = stat.Key;
-    //         winningRevenuePerMile = stat.Value;
-    //     }
-    // }
+    auto iterator = eco_stats_store.find(key);
+    if (iterator != eco_stats_store.end())
+    {
+      for (auto && stat : iterator->second)
+      {
+          if (stat.second > winning_revenue_per_mile)
+          {
+              winnersName = stat.first;
+              winning_revenue_per_mile = stat.second;
+          }
+      }
+    }
 
-    return "<ecoStatsWinner SalesPersonName=\"" +
+    return "<ecoStatsWinner SalespersonName=\"" +
             winnersName +
             "\" />";
 }
@@ -146,20 +165,22 @@ std::string shouty_stats_service::create_key(int year, int month) const
     return key.str();
 }
 
-void shouty_stats_service::store_eco_stats(const std::string &, const XMLDocument& )
+void shouty_stats_service::store_eco_stats(const std::string&  key,  const XMLElement* element)
 {
-      // if (root.HasChildNodes)
-      // {
-      //     var ecoStats = new Dictionary<string, float>();
-      //     XmlNode ecoStatNode = root.FirstChild;
-      //     while (ecoStatNode != null)
-      //     {
-      //         ecoStats[ecoStatNode.Attributes["SalesPersonName"].Value] = float.Parse(ecoStatNode.Attributes["RevenuePerMile"].Value);
-      //         ecoStatNode = ecoStatNode.NextSibling;
-      //     }
-      //     ecoStatsStore[key] = ecoStats;
-      // }
+  std::map<std::string, double> stats;
+
+  while (element != NULL)
+  {
+  std::string name(element->Attribute("salesPersonName"));
+  double rpm(atof(element->Attribute("revenuePerMile")));
+
+  stats[name] = rpm;
+
+  element = element->NextSiblingElement();
   }
+
+  eco_stats_store[key] = stats;
+}
 
 void shouty_stats_service::check_service_connection() const
 {

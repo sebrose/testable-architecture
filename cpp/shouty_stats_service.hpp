@@ -7,6 +7,7 @@
 namespace tinyxml2
 {
     class XMLDocument;
+    class XMLElement;
 }
 
 class shouty_stats_service
@@ -22,7 +23,7 @@ public:
 
 private:
     void check_service_connection() const;
-    void store_eco_stats(const std::string & key, const tinyxml2::XMLDocument & root);
+    void store_eco_stats(const std::string & key, const tinyxml2::XMLElement* root);
     std::string create_key(int year, int month) const;
 
 private:
@@ -32,9 +33,9 @@ private:
     mutable std::uniform_int_distribution<int> customer_id_distribution;
     std::map<int,std::string> revenue_by_customer_id;
 
-    int latestEcoStatsMonth;
-    int latestEcoStatsYear;
-    //mutable std::map<std::string, std::map<std::string, float>> ecoStatsStore;    
+    int latest_eco_stats_month;
+    int latest_eco_stats_year;
+    mutable std::map<std::string, std::map<std::string, double>> eco_stats_store;
 };
 
 #endif
