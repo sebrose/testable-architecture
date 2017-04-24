@@ -3,10 +3,10 @@
 
 #include <map>
 #include <random>
+#include <string>
 
 namespace tinyxml2
 {
-    class XMLDocument;
     class XMLElement;
 }
 
@@ -19,11 +19,11 @@ public:
     std::string is_valid_customer(const std::string & customer_xml) const;
     std::string get_latest_eco_stats_date() const;
     void set_eco_stats(const std::string & eco_stats_xml);
-    std::string get_eco_stats_winner_for(const std::string & dateXml) const;
+    std::string get_eco_stats_winner_for(const std::string & date_xml) const;
 
 private:
     void check_service_connection() const;
-    void store_eco_stats(const std::string & key, const tinyxml2::XMLElement* root);
+    void store_eco_stats(const std::string & key, const tinyxml2::XMLElement * root);
     std::string create_key(int year, int month) const;
 
 private:

@@ -1,17 +1,18 @@
 #include "shouty_stats_service.hpp"
 #include "shouty_stats_service_exception.hpp"
-#include <tinyxml2.hpp>
 #include <cstdlib>
-#include <sstream>
 #include <iomanip>
+#include <sstream>
+#include <tinyxml2.hpp>
 
-using tinyxml2::XMLDocument;
-using tinyxml2::XMLElement;
 using std::getenv;
+using std::map;
 using std::stoi;
 using std::string;
 using std::stringstream;
 using std::to_string;
+using tinyxml2::XMLDocument;
+using tinyxml2::XMLElement;
 
 shouty_stats_service::shouty_stats_service()
     : generator(std::random_device()())
@@ -27,21 +28,21 @@ shouty_stats_service::shouty_stats_service()
     , latest_eco_stats_month(0)
     , latest_eco_stats_year(0)
 {
-  if (getenv("VOLATILE_STATS_DATA") != NULL)
-  {
-     revenue_by_customer_id.clear();
-     for (int i = 0; i < 10; i++)
-     {
-         double random_revenue = revenue_distribution(generator) / 100.0;
-         revenue_by_customer_id.insert({
-             customer_id_distribution(generator),
-             to_string(random_revenue)
-         });
-     }
- }
+    if (getenv("VOLATILE_STATS_DATA") != NULL)
+    {
+        revenue_by_customer_id.clear();
+        for (int i = 0; i < 10; i++)
+        {
+            double random_revenue = revenue_distribution(generator) / 100.0;
+            revenue_by_customer_id.insert({
+                customer_id_distribution(generator),
+                to_string(random_revenue)
+            });
+        }
+    }
 }
 
-std::string shouty_stats_service::get_revenue_for_customer(int customer_id) const
+string shouty_stats_service::get_revenue_for_customer(int customer_id) const
 {
     check_service_connection();
     auto pos = revenue_by_customer_id.find(customer_id);
@@ -62,11 +63,11 @@ std::string shouty_stats_service::get_revenue_for_customer(int customer_id) cons
     return response.str();
 }
 
-std::string shouty_stats_service::get_customer_ids() const
+string shouty_stats_service::get_customer_ids() const
 {
     stringstream response;
     response << "<Customers>";
-    for (auto && customer_data : revenue_by_customer_id)
+    for (auto & customer_data : revenue_by_customer_id)
     {
         response << "<Customer id=\""
                  << customer_data.first
@@ -76,7 +77,7 @@ std::string shouty_stats_service::get_customer_ids() const
     return response.str();
 }
 
-std::string shouty_stats_service::is_valid_customer(const std::string & customer_xml) const
+string shouty_stats_service::is_valid_customer(const string & customer_xml) const
 {
     XMLDocument request;
     request.Parse(customer_xml.c_str());
@@ -91,34 +92,32 @@ std::string shouty_stats_service::is_valid_customer(const std::string & customer
     }
 }
 
-std::string shouty_stats_service::get_latest_eco_stats_date() const
+string shouty_stats_service::get_latest_eco_stats_date() const
 {
-  std::stringstream response;
+    stringstream response;
 
-  response
-    << "<LatestEcoStatsDate year=\""
-    << latest_eco_stats_year
-    << "\" month=\""
-    << latest_eco_stats_month
-    << "\" />";
+    response << "<LatestEcoStatsDate year=\""
+             << latest_eco_stats_year
+             << "\" month=\""
+             << latest_eco_stats_month
+             << "\" />";
 
-  return response.str();
+    return response.str();
 }
 
-void shouty_stats_service::set_eco_stats(const std::string& eco_stats_xml)
+void shouty_stats_service::set_eco_stats(const string & eco_stats_xml)
 {
     XMLDocument request;
     request.Parse(eco_stats_xml.c_str());
-    XMLElement* root = request.FirstChildElement("EcoStats");
-    int month = stoi(root->Attribute("month"));
-    int year = stoi(root->Attribute("year"));
-
+    const XMLElement * root = request.FirstChildElement("EcoStats");
+    const int month = stoi(root->Attribute("month"));
+    const int year = stoi(root->Attribute("year"));
     auto key = create_key(year, month);
 
     if (year < latest_eco_stats_year ||
             (year == latest_eco_stats_year && month < latest_eco_stats_month))
     {
-        throw new shouty_stats_service_exception("EcoStats for a later month have already been set");
+        throw shouty_stats_service_exception("EcoStats for a later month have already been set");
     }
 
     store_eco_stats(key, root->FirstChildElement("EcoStat"));
@@ -127,69 +126,63 @@ void shouty_stats_service::set_eco_stats(const std::string& eco_stats_xml)
     latest_eco_stats_month = month;
 }
 
-std::string shouty_stats_service::get_eco_stats_winner_for(
-    const std::string& dateXml) const
+string shouty_stats_service::get_eco_stats_winner_for(const string & date_xml) const
 {
-    std::string winnersName = "Nobody";
+    string winners_name = "Nobody";
     double winning_revenue_per_mile = 0;
 
     XMLDocument request;
-    request.Parse(dateXml.c_str());
-    int month = atoi(request.FirstChildElement("EcoStats")->Attribute("month"));
-    int year = atoi(request.FirstChildElement("EcoStats")->Attribute("year"));
-
+    request.Parse(date_xml.c_str());
+    const int month = stoi(request.FirstChildElement("EcoStats")->Attribute("month"));
+    const int year = stoi(request.FirstChildElement("EcoStats")->Attribute("year"));
     auto key = create_key(year, month);
 
     auto iterator = eco_stats_store.find(key);
     if (iterator != eco_stats_store.end())
     {
-      for (auto && stat : iterator->second)
-      {
-          if (stat.second > winning_revenue_per_mile)
-          {
-              winnersName = stat.first;
-              winning_revenue_per_mile = stat.second;
-          }
-      }
+        for (auto & stat : iterator->second)
+        {
+            if (stat.second > winning_revenue_per_mile)
+            {
+                winners_name = stat.first;
+                winning_revenue_per_mile = stat.second;
+            }
+        }
     }
 
     return "<ecoStatsWinner SalespersonName=\"" +
-            winnersName +
+            winners_name +
             "\" />";
 }
 
-std::string shouty_stats_service::create_key(int year, int month) const
+string shouty_stats_service::create_key(int year, int month) const
 {
     stringstream key;
     key << year << "-" << month;
     return key.str();
 }
 
-void shouty_stats_service::store_eco_stats(const std::string&  key,  const XMLElement* element)
+void shouty_stats_service::store_eco_stats(const string & key, const XMLElement * element)
 {
-  std::map<std::string, double> stats;
-
-  while (element != NULL)
-  {
-  std::string name(element->Attribute("salesPersonName"));
-  double rpm(atof(element->Attribute("revenuePerMile")));
-
-  stats[name] = rpm;
-
-  element = element->NextSiblingElement();
-  }
-
-  eco_stats_store[key] = stats;
+    map<string, double> stats;
+    while (element != NULL)
+    {
+        const string name(element->Attribute("salesPersonName"));
+        const double rpm(atof(element->Attribute("revenuePerMile")));
+        stats[name] = rpm;
+        element = element->NextSiblingElement();
+    }
+    eco_stats_store[key] = stats;
 }
 
 void shouty_stats_service::check_service_connection() const
 {
-    bool connection_is_reliable = (getenv("RELIABLE_CONNECTION") != NULL);
+    const bool connection_is_reliable = (getenv("RELIABLE_CONNECTION") != NULL);
     if (connection_is_reliable)
     {
-      return;
+        return;
     }
-    int parity_control = distribution(generator);
+    const int parity_control = distribution(generator);
     if (parity_control == 1)
     {
         const string message =
