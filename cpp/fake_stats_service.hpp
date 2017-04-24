@@ -12,7 +12,7 @@ public:
     virtual double get_revenue(int customer_id) const;
 
 private:
-      std::map<int, double> revenue_data;
+    std::map<int, double> revenue_data;
 }; 
 
 #endif
