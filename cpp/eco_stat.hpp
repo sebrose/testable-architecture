@@ -1,7 +1,7 @@
 #ifndef ECO_STAT_INCLUDED
 #define ECO_STAT_INCLUDED
 
-#include <ostream>
+#include <iosfwd>
 #include <string>
 
 struct eco_stat
@@ -14,6 +14,7 @@ struct eco_stat
 }; 
 
 bool operator==(const eco_stat & lhs, const eco_stat & rhs);
+bool operator!=(const eco_stat & lhs, const eco_stat & rhs);
 
 std::ostream & operator<<(std::ostream & os, const eco_stat & es);
 
