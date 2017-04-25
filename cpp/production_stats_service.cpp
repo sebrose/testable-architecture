@@ -1,5 +1,4 @@
 #include "production_stats_service.hpp"
-#include "shouty_stats_service.hpp"
 #include <memory>
 //#include <tinyxml2.hpp>
 
