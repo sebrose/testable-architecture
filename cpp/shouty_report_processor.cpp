@@ -4,6 +4,7 @@
 #include <sstream>
 #include <string>
 
+using std::make_unique;
 using std::ostringstream;
 using std::stod;
 using std::setprecision;
@@ -14,7 +15,7 @@ shouty_report_processor::shouty_report_processor(
     const std::vector<mileage_claim> & claims
 )
     : claims_(claims)
-    , stats_service_(new shouty_stats_service())
+    , stats_service_(make_unique<shouty_stats_service>())
 {
 }
 
@@ -22,7 +23,7 @@ void shouty_report_processor::process() const
 {
     XMLDocument xmldoc;
     xmldoc.InsertEndChild(xmldoc.NewDeclaration());
-    
+
     XMLElement * root = xmldoc.NewElement("ecoReport");
     xmldoc.InsertEndChild(root);
 
