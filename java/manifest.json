@@ -12,6 +12,7 @@
     "ProductionStatsService.java",
     "ShoutyReportJob.java",
     "ShoutyReportProcessor.java",
+    "ShoutyStatsService.java",
     "ShoutyStatsServiceException.java",
     "StatsServiceContractTests.java",
     "XmlHelper.java",
@@ -19,8 +20,7 @@
     "test_case_1_input.csv",
     "test_case_2_expected.xml",
     "test_case_2_input.csv",
-    "UnitTests.java",
-    "zzz_DoNotReadMe.java"
+    "UnitTests.java"
   ],
   "display_name": "Java, JUnit",
   "image_name": "cyberdojofoundation/java_junit",
