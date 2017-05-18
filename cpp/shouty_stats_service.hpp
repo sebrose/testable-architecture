@@ -14,7 +14,7 @@ class shouty_stats_service
 {
 public:
     shouty_stats_service();
-    std::string get_revenue_for_customer(int customer_id) const;
+    std::string get_revenue_for_customer(const std::string & customer_xml) const;
     std::string get_customer_ids() const;
     std::string is_valid_customer(const std::string & customer_xml) const;
     std::string get_latest_eco_stats_date() const;
@@ -25,6 +25,7 @@ private:
     void check_service_connection() const;
     void store_eco_stats(const std::string & key, const tinyxml2::XMLElement * root);
     std::string create_key(int year, int month) const;
+    int get_customer_id(const std::string & xml) const;
 
 private:
     mutable std::default_random_engine generator;

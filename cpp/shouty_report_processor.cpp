@@ -29,8 +29,10 @@ void shouty_report_processor::process() const
 
     for (auto && claim : claims_)
     {
+        ostringstream xmlRequest;
+        xmlRequest << "<Customer id=\"" << claim.customer_id() << "\"/>";
         XMLDocument response;
-        response.Parse(stats_service_->get_revenue_for_customer(claim.customer_id()).c_str());
+        response.Parse(stats_service_->get_revenue_for_customer(xmlRequest.str()).c_str());
         double revenue = stod(response.FirstChildElement("CustomerStats")->Attribute("revenue"));
 
         ostringstream oss;

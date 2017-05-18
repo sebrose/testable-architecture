@@ -79,9 +79,10 @@ shouty_stats_service::shouty_stats_service()
     }
 }
 
-string shouty_stats_service::get_revenue_for_customer(int customer_id) const
+string shouty_stats_service::get_revenue_for_customer(const std::string & customer_xml) const
 {
     check_service_connection();
+    int customer_id = get_customer_id(customer_xml);
     auto pos = revenue_by_customer_id.find(customer_id);
     if (pos == revenue_by_customer_id.end())
     {
@@ -116,9 +117,7 @@ string shouty_stats_service::get_customer_ids() const
 
 string shouty_stats_service::is_valid_customer(const string & customer_xml) const
 {
-    XMLDocument request;
-    request.Parse(customer_xml.c_str());
-    int id = stoi(request.FirstChildElement("Customer")->Attribute("id"));
+    int id = get_customer_id(customer_xml);
     if (revenue_by_customer_id.find(id) != revenue_by_customer_id.end())
     {
         return "<booleanResponse result=\"TRUE\" />";
@@ -190,6 +189,13 @@ string shouty_stats_service::get_eco_stats_winner_for(const string & date_xml) c
     return "<ecoStatsWinner SalespersonName=\"" +
             winners_name +
             "\" />";
+}
+
+int shouty_stats_service::get_customer_id(const string & xml) const
+{
+    XMLDocument request;
+    request.Parse(xml.c_str());
+    return stoi(request.FirstChildElement("Customer")->Attribute("id"));
 }
 
 string shouty_stats_service::create_key(int year, int month) const

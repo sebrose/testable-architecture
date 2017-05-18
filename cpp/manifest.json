@@ -1,6 +1,5 @@
 {
   "visible_filenames": [
-    "contract.tests.cpp",
     "cyber-dojo.sh",
     "eco_stat.cpp",
     "eco_stat.hpp",
@@ -25,6 +24,7 @@
     "shouty_stats_service_exception.cpp",
     "shouty_stats_service_exception.hpp",
     "stats_service.hpp",
+    "stats_service.contract.tests.cpp",
     "test_case_1_expected.xml",
     "test_case_1_input.csv",
     "test_case_2_expected.xml",

@@ -1,21 +1,28 @@
 #include "production_stats_service.hpp"
-#include <memory>
-//#include <tinyxml2.hpp>
+#include "shouty_stats_service.hpp"
 
-//using std::stod;
-//using std::string;
-//using tinyxml2::XMLDocument;
+#include <tinyxml2.hpp>
+#include <memory>
+#include <sstream>
+
+using std::ostringstream;
+using std::stod;
+using tinyxml2::XMLDocument;
 
 production_stats_service::production_stats_service()
     : stats_service(std::make_unique<shouty_stats_service>())
 {
 }
 
-double production_stats_service::get_revenue(int /*customer_id*/) const
+double production_stats_service::get_revenue(int /* customer_id */) const
 {
-    throw "unimplemented";
+    /*
+        ostringstream xmlRequest;
+        xmlRequest << "<Customer id=\"" << customer_id << "\"/>";
+        XMLDocument response;
+        response.Parse(stats_service->get_revenue_for_customer(xmlRequest.str()).c_str());
+        return stod(response.FirstChildElement("CustomerStats")->Attribute("revenue"));
+    */
 
-    // Hint: you can move code from shouty_report_processor.cpp to
-    // implement this method, including the behaviour to extract the
-    // revenue value as a double from the XML
+    throw "unimplemented - uncomment code above and delete this exception";
 }

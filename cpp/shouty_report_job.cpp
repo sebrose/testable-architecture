@@ -1,5 +1,8 @@
 #include "mileage_claim.hpp"
 #include "shouty_report_processor.hpp"
+//#include "stats_service.hpp"
+//#include "production_stats_service.hpp"
+//#include "../test/fake_stats_service.hpp"
 #include <cstdlib>
 #include <fstream>
 #include <sstream>
@@ -32,6 +35,19 @@ vector<mileage_claim> read_mileage_claims(ifstream & ifs)
     }
     return claims;
 }
+
+/*
+std::unique_ptr<stats_service> create_stats_service()
+{
+    const char * initialisation_data = std::getenv("FAKE_INITIALISATION_DATA");
+    if (initialisation_data != NULL)
+        return std::make_unique<fake_stats_service>(
+            initialisation_data
+        );
+    else
+        return std::make_unique<production_stats_service>();
+}
+*/
 
 int main(int argc, char * argv[])
 {
