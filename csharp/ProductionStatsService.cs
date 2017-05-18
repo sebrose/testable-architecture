@@ -1,14 +1,21 @@
 using System.IO;
 using System.Xml;
- 
+
 public class ProductionStatsService : IStatsService
 {
+    private ShoutyStatsService service = new ShoutyStatsService();
+
     public decimal GetRevenue(int customerId)
     {
-        throw new System.NotImplementedException();
+        /*
+            string requestXml = "<Customer id=\"" + customerId + "\"/>";
+            string responseXml = service.GetRevenueForCustomer(requestXml);
 
-        // Hint: you can move code from ShoutyReportProcessor.cs to
-        // implement this method, including the behaviour to extract the
-        // revenue value as a double from the XML
+            var responseDocument = new XmlDocument();
+            responseDocument.LoadXml(responseXml);
+            return decimal.Parse(responseDocument.DocumentElement.Attributes["revenue"].Value);
+        */
+
+        throw new System.NotImplementedException("Uncomment code above and delete this exception");
     }
 }

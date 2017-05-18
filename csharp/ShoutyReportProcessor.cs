@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml;
 
 class ShoutyReportProcessor
@@ -13,11 +13,12 @@ class ShoutyReportProcessor
 
     public void Process()
     {
-       XmlDocument reportXml = new XmlDocument();
+        XmlDocument reportXml = new XmlDocument();
         reportXml.LoadXml("<?xml version=\"1.0\" encoding=\"UTF-8\"?><ecoReport/>");
         foreach (var claim in mileageClaims)
         {
-            string responseXml = statsService.GetRevenueForCustomer(claim.CustomerID);
+            string requestXml = "<Customer id=\"" + claim.CustomerID + "\"/>";
+            string responseXml = statsService.GetRevenueForCustomer(requestXml);
 
             var responseDocument = new XmlDocument();
             responseDocument.LoadXml(responseXml);
@@ -29,7 +30,7 @@ class ShoutyReportProcessor
             node.SetAttribute("RevenuePerMile", System.Convert.ToString(revenuePerMile));
             reportXml.DocumentElement.AppendChild(node);
         }
- 
+
         reportXml.Save("report.xml");
     }
 }

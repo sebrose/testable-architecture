@@ -1,6 +1,5 @@
 {
   "visible_filenames": [
-    "ContractTests.cs",
     "cyber-dojo.sh",
     "EcoStat.cs",
     "EcoStatBuilder.cs",
@@ -14,6 +13,7 @@
     "ShoutyReportJob.cs",
     "ShoutyReportProcessor.cs",
     "ShoutyStatsServiceException.cs",
+    "StatsServiceContractTests.cs",
     "test_case_1_expected.xml",
     "test_case_1_input.csv",
     "test_case_2_expected.xml",

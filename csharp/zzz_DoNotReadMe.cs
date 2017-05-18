@@ -1,4 +1,4 @@
-// DO NOT LOOK IN THIS FILE
+﻿// DO NOT LOOK IN THIS FILE
 // DO NOT LOOK IN THIS FILE
 // DO NOT LOOK IN THIS FILE
 // DO NOT LOOK IN THIS FILE
@@ -36,7 +36,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
-
 public class ShoutyStatsService
 {
     private static Random rnd = new Random();
@@ -61,10 +60,10 @@ public class ShoutyStatsService
         if (System.Environment.GetEnvironmentVariable("VOLATILE_STATS_DATA") != null)
         {
             revenueByCustomerId = new Dictionary<int, decimal>();
-            for (int i=0; i<10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 revenueByCustomerId[rnd.Next(1, 1000)]
-                     = (decimal)rnd.Next(0, 99999999)/100m;
+                     = (decimal)rnd.Next(0, 99999999) / 100m;
             }
         }
     }
@@ -72,6 +71,20 @@ public class ShoutyStatsService
     public string GetRevenueForCustomer(int customerID)
     {
         CheckServiceConnection();
+        if (!revenueByCustomerId.ContainsKey(customerID))
+            throw new ShoutyStatsServiceException("No customer found with ID '" + customerID.ToString() + "'");
+
+        return "<CustomerStats id=\"" +
+            customerID.ToString() +
+            "\" revenue=\"" +
+            revenueByCustomerId[customerID] +
+            "\"/>";
+    }
+
+    public string GetRevenueForCustomer(string customerXml)
+    {
+        CheckServiceConnection();
+        int customerID = GetCustomerId(customerXml);
         if (!revenueByCustomerId.ContainsKey(customerID))
             throw new ShoutyStatsServiceException("No customer found with ID '" + customerID.ToString() + "'");
 
@@ -99,9 +112,7 @@ public class ShoutyStatsService
 
     public string IsValidCustomer(string customerXml)
     {
-        var doc = new XmlDocument();
-        doc.LoadXml(customerXml);
-        int id = int.Parse(doc.DocumentElement.Attributes["id"].Value);
+        int id = GetCustomerId(customerXml);
 
         if (revenueByCustomerId.ContainsKey(id))
         {
@@ -118,7 +129,7 @@ public class ShoutyStatsService
         return "<LatestEcoStatsDate year=\"" +
             latestEcoStatsYear.ToString("D4") +
             "\" month=\"" +
-            latestEcoStatsMonth.ToString("D2")  +
+            latestEcoStatsMonth.ToString("D2") +
             "\" />";
     }
 
@@ -168,6 +179,13 @@ public class ShoutyStatsService
                 "\" />";
     }
 
+    private int GetCustomerId(string xml)
+    {
+        var doc = new XmlDocument();
+        doc.LoadXml(xml);
+        return int.Parse(doc.DocumentElement.Attributes["id"].Value);
+    }
+
     private string CreateKey(int year, int month)
     {
         return string.Format("{0:D4}-{1:D2}", year, month);
@@ -196,9 +214,8 @@ public class ShoutyStatsService
         if (System.Environment.GetEnvironmentVariable("RELIABLE_CONNECTION") != null)
             return;
 
-        int parityControl = rnd.Next(1,10);
+        int parityControl = rnd.Next(1, 10);
         if (parityControl == 1)
             throw new ShoutyStatsServiceException("ShoutyStatsService connection error - please wait a few moments and try your request again");
     }
 }
-

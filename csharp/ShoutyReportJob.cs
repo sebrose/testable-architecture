@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Collections.Generic;
 
 class ShoutyReportJob
@@ -11,6 +11,19 @@ class ShoutyReportJob
         var job = new ShoutyReportProcessor(mileageClaims);
         job.Process();
     }
+
+        /*
+        private static IStatsService CreateStatsService()
+        {
+            if (System.Environment.GetEnvironmentVariable("FAKE_INITIALISATION_DATA") != null)
+            {
+                return new FakeStatsService(
+                    System.Environment.GetEnvironmentVariable("FAKE_INITIALISATION_DATA"));
+            }
+
+            return new ProductionStatsService(new ShoutyStatsService());
+        }
+        */
 
     private static IList<MileageClaim> ReadMileageClaims(string claimsPath)
     {

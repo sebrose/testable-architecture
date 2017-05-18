@@ -1,0 +1,40 @@
+using System.Collections.Generic;
+
+namespace ShoutyReport
+{
+public class EcoStatCollectionBuilder
+{
+    private List<EcoStat> defaultEcoStatCollection =
+        new List<EcoStat>(){
+            new EcoStat("David Allen", 1.234f),
+            new EcoStat("Lisa Crispin", 0.025f),
+            new EcoStat("Ian Dees", 98.76f)
+        };
+
+    private Dictionary<string, float> ecoStatData = null;
+
+    public List<EcoStat> build() {
+        if (ecoStatData == null) {
+            return defaultEcoStatCollection;
+        } else {
+            List<EcoStat> ecoStatCollection = new List<EcoStat>();
+
+            foreach(KeyValuePair<string, float> entry in ecoStatData)
+            {
+                ecoStatCollection.Add(new EcoStat(entry.Key, entry.Value));
+            }
+
+            return ecoStatCollection;
+        }
+    }
+
+    public EcoStatCollectionBuilder withSalesPersonRpm(string name, float rpm) {
+        if (ecoStatData == null){
+            ecoStatData = new Dictionary<string, float>();
+        }
+
+        ecoStatData[name] = rpm;
+        return this;
+    }
+}
+}

@@ -1,4 +1,11 @@
-public class EcoStat 
+public class EcoStat
 {
-  // Your EcoStat implementation goes here.
+    public string SalesPersonName { get; private set; }
+    public float RevenuePerMile { get; private set; }
+
+    public EcoStat(string salesPersonName, float revenuePerMile)
+    {
+        this.SalesPersonName = salesPersonName;
+        this.RevenuePerMile = revenuePerMile;
+    }
 }

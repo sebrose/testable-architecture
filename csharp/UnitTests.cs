@@ -1,5 +1,5 @@
+﻿using System;
 using NUnit.Framework;
-using System.IO;
 
 [TestFixture]
 public class UnitTests
