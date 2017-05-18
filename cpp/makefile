@@ -28,12 +28,12 @@ mileage_claim.o: $(MILEAGE_CLAIM_DEPENDENTS)
 
 #- - - - - - - - - - - - - - - - - - - - - -
 
-MILEAGE_CLAIM_BUILDER_DEPENDENTS =\
-	${TEST_PATH}/mileage_claim_builder.cpp \
-	${TEST_PATH}/mileage_claim_builder.hpp \
+MILEAGE_CLAIM_COLLECTION_BUILDER_DEPENDENTS =\
+	${TEST_PATH}/mileage_claim_collection_builder.cpp \
+	${TEST_PATH}/mileage_claim_collection_builder.hpp \
 	${SRC_PATH}/mileage_claim.hpp
 
-mileage_claim_builder.o: $(MILEAGE_CLAIM_BUILDER_DEPENDENTS)
+mileage_claim_collection_builder.o: $(MILEAGE_CLAIM_COLLECTION_BUILDER_DEPENDENTS)
 	g++ ${CXXFLAGS} -c $<
 
 #- - - - - - - - - - - - - - - - - - - - - -
@@ -47,12 +47,12 @@ eco_stat.o: $(ECO_STAT_DEPENDENTS)
 
 #- - - - - - - - - - - - - - - - - - - - - -
 
-ECO_STAT_BUILDER_DEPENDENTS = \
-	${TEST_PATH}/eco_stat_builder.cpp \
-	${TEST_PATH}/eco_stat_builder.hpp \
+ECO_STAT_COLLECTION_BUILDER_DEPENDENTS = \
+	${TEST_PATH}/eco_stat_collection_builder.cpp \
+	${TEST_PATH}/eco_stat_collection_builder.hpp \
 	${SRC_PATH}/eco_stat.hpp
 
-eco_stat_builder.o: $(ECO_STAT_BUILDER_DEPENDENTS)
+eco_stat_collection_builder.o: $(ECO_STAT_COLLECTION_BUILDER_DEPENDENTS)
 	g++ ${CXXFLAGS} -c $<
 
 #- - - - - - - - - - - - - - - - - - - - - -
@@ -77,11 +77,11 @@ fake_stats_service.o: $(FAKE_STATS_SERVICE_DEPENDENTS)
 
 #- - - - - - - - - - - - - - - - - - - - - -
 
-FAKE_STATS_BUILDER_DEPENDENTS = \
-	${TEST_PATH}/fake_stats_builder.cpp \
-	${TEST_PATH}/fake_stats_builder.hpp
+FAKE_STATS_SERVICE_BUILDER_DEPENDENTS = \
+	${TEST_PATH}/fake_stats_service_builder.cpp \
+	${TEST_PATH}/fake_stats_service_builder.hpp
 
-fake_stats_builder.o: $(FAKE_STATS_BUILDER_DEPENDENTS)
+fake_stats_service_builder.o: $(FAKE_STATS_SERVICE_BUILDER_DEPENDENTS)
 	g++ ${CXXFLAGS} -c $<
 
 #- - - - - - - - - - - - - - - - - - - - - -
@@ -122,11 +122,11 @@ shouty_stats_service.o: $(SHOUTY_STATS_SERVICE_DEPENDENTS)
 UNIT_TEST_DEPENDENTS = \
 	${TEST_PATH}/unit.tests.cpp \
 	eco_stat.o \
-	eco_stat_builder.o \
-	fake_stats_builder.o \
+	eco_stat_collection_builder.o \
+	fake_stats_service_builder.o \
 	fake_stats_service.o \
 	mileage_claim.o \
-	mileage_claim_builder.o \
+	mileage_claim_collection_builder.o \
 	production_stats_service.o \
 	shouty_report_processor.o \
 	shouty_stats_service_exception.o \
@@ -140,7 +140,7 @@ unit: $(UNIT_TEST_DEPENDENTS)
 
 CONTRACT_TEST_DEPENDENTS = \
 	${TEST_PATH}/stats_service.contract.tests.cpp \
-	fake_stats_builder.o \
+	fake_stats_service_builder.o \
 	fake_stats_service.o \
 	mileage_claim.o \
 	production_stats_service.o \
@@ -156,7 +156,7 @@ contract: $(CONTRACT_TEST_DEPENDENTS)
 SHOUTY_REPORT_JOB_DEPENDENTS = \
 	${SRC_PATH}/shouty_report_job.cpp \
 	eco_stat.o \
-	eco_stat_builder.o \
+	eco_stat_collection_builder.o \
 	fake_stats_service.o \
 	mileage_claim.o \
 	production_stats_service.o \
