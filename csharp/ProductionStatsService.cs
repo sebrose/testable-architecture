@@ -3,7 +3,7 @@ using System.Xml;
 
 public class ProductionStatsService : IStatsService
 {
-    private ShoutyStatsService service = new ShoutyStatsService();
+    // private ShoutyStatsService service = new ShoutyStatsService();
 
     public decimal GetRevenue(int customerId)
     {

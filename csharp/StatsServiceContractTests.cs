@@ -2,7 +2,7 @@
 using NUnit.Framework;
 
 
-[TestClass]
+[TestFixture]
 public class StatsServiceContractTests
 {
     [Test]

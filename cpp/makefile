@@ -5,13 +5,14 @@ SERVICE_PATH = .
 TEST_PATH = .
 
 # This assumes that the tinyxml2 source code is in the cyber-dojo image
-TINYXML2_PATH = /usr/local/src
+TINYXML2_SRC_PATH = /usr/local/src
+TINYXML2_INC_PATH = /usr/local/include
 
 #- - - - - - - - - - - - - - - - - - - - - -
 
 TINYXML2_DEPENDENTS = \
-	${TINYXML2_PATH}/tinyxml2.cpp \
-	${TINYXML2_PATH}/tinyxml2.hpp
+	${TINYXML2_SRC_PATH}/tinyxml2.cpp \
+	${TINYXML2_INC_PATH}/tinyxml2.hpp
 
 tinyxml2.o: $(TINYXML2_DEPENDENTS)
 	g++ ${CXXFLAGS} -c $<
