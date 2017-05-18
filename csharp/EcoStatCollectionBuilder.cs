@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 
-namespace ShoutyReport
-{
 public class EcoStatCollectionBuilder
 {
     private List<EcoStat> defaultEcoStatCollection =
@@ -36,5 +34,4 @@ public class EcoStatCollectionBuilder
         ecoStatData[name] = rpm;
         return this;
     }
-}
 }
