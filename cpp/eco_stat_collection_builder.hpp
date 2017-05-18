@@ -6,9 +6,6 @@
 #include <map>
 #include <vector>
 
-namespace shouty_report
-{
-
 class eco_stat_collection_builder
 {
 public:
@@ -24,7 +21,5 @@ private:
 
     std::map<std::string, double> eco_stat_data;
 };
-
-}
 
 #endif

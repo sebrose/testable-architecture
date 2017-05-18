@@ -4,9 +4,6 @@
 #include "fake_stats_service.hpp"
 #include <string>
 
-namespace shouty_report
-{
-
 class fake_stats_service_builder
 {
 public:
@@ -21,7 +18,5 @@ private:
     std::string default_customer_data = "19,123456.78;22,123456.78;57,123456.78";
     std::map<int, std::string> builder_data;
 };
-
-}
 
 #endif

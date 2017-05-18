@@ -5,9 +5,6 @@
 #include <string>
 #include <vector>
 
-namespace shouty_report
-{
-
 class mileage_claim_collection_builder
 {
 public:
@@ -23,7 +20,5 @@ private:
     const static std::vector<mileage_claim> default_mileage_claim_collection;
     std::vector<mileage_claim> mileage_claim_collection;
 };
-
-}
 
 #endif

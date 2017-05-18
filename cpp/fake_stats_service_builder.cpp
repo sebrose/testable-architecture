@@ -2,37 +2,34 @@
 
 #include <sstream>
 
-namespace shouty_report
+fake_stats_service fake_stats_service_builder::build() const
 {
-    fake_stats_service fake_stats_service_builder::build() const
+    if (builder_data.size() == 0)
     {
-        if (builder_data.size() == 0)
-        {
-            return fake_stats_service(default_customer_data);
-        }
-        else
-        {
-            std::ostringstream data;
-            std::string separator = "";
-
-            for (auto & entry : builder_data)
-            {
-                data << separator << entry.first << "," << entry.second;
-                separator = ";";
-            }
-
-            return fake_stats_service(data.str());
-        }
+        return fake_stats_service(default_customer_data);
     }
-
-    fake_stats_service_builder &
-    fake_stats_service_builder::with_customer_revenue(
-        int id,
-        const std::string&  revenue
-    )
+    else
     {
-        builder_data[id] = revenue;
+        std::ostringstream data;
+        std::string separator = "";
 
-        return *this;
+        for (auto & entry : builder_data)
+        {
+            data << separator << entry.first << "," << entry.second;
+            separator = ";";
+        }
+
+        return fake_stats_service(data.str());
     }
+}
+
+fake_stats_service_builder &
+fake_stats_service_builder::with_customer_revenue(
+    int id,
+    const std::string&  revenue
+)
+{
+    builder_data[id] = revenue;
+
+    return *this;
 }

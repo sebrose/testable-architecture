@@ -1,7 +1,5 @@
 #include "mileage_claim_collection_builder.hpp"
 
-namespace shouty_report
-{
 const std::vector<mileage_claim>
 mileage_claim_collection_builder::default_mileage_claim_collection = {
       mileage_claim("David Allen", 130000, 57),
@@ -30,6 +28,4 @@ mileage_claim_collection_builder::with_sales_person_miles_for_customer(
 {
     mileage_claim_collection.push_back(mileage_claim(name, miles, id));
     return *this;
-}
-
 }
