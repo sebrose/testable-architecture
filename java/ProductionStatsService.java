@@ -1,11 +1,17 @@
+import org.w3c.dom.Document;
+
 public class ProductionStatsService implements StatsService {
     private ShoutyStatsService service = new ShoutyStatsService();
 
     public double getRevenue(int customerID) {
-      throw new java.lang.UnsupportedOperationException();
+      /*
+        String requestXml = "<Customer id=\"" + customerID + "\"/>";
+        String responseXml = service.getRevenueForCustomer(requestXml);
+        Document responseDocument = XmlHelper.parse(responseXml);
 
-      // Hint: you can move code from ShoutyReportProcessor.java to
-      // implement this method, including the behaviour to extract the
-      // revenue value as a double from the XML
+        return Double.parseDouble(responseDocument.getDocumentElement().getAttribute("revenue"));
+      */
+
+      throw new java.lang.UnsupportedOperationException("Uncomment code above and delete this exception");
     }
 }

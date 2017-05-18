@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+// import shouty.reporting.fakes.FakeStatsService;
+
 class ShoutyReportJob {
     public static void main(String[] args) throws IOException {
         String path = args[0];
@@ -12,6 +14,17 @@ class ShoutyReportJob {
         ShoutyReportProcessor job = new ShoutyReportProcessor(mileageClaims);
         job.process();
     }
+
+/*
+    private static StatsService createStatsService() {
+        if (System.getenv().get("FAKE_INITIALISATION_DATA") != null) {
+            return new FakeStatsService(
+                System.getenv().get("FAKE_INITIALISATION_DATA"));
+        }
+
+        return new ProductionStatsService();
+    }
+*/
 
     private static List<MileageClaim> readMileageClaims(String claimsPath) throws IOException {
         List<MileageClaim> mileageClaims = new ArrayList<>();

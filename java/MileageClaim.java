@@ -1,4 +1,4 @@
-class MileageClaim {
+public class MileageClaim {
     public final String name;
     public final int miles;
     public final int customerID;

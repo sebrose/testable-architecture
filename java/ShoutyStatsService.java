@@ -74,7 +74,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-class ShoutyStatsService {
+public class ShoutyStatsService {
     private static Random rnd = new Random();
 
     private int latestEcoStatsMonth;
@@ -88,7 +88,7 @@ class ShoutyStatsService {
         put(57, 123456.78);
     }};
 
-    ShoutyStatsService() {
+    public ShoutyStatsService() {
         if (System.getenv("VOLATILE_STATS_DATA") != null) {
             revenueByCustomerId = new HashMap<>();
             for (int i = 0; i < 10; i++) {
@@ -97,8 +97,9 @@ class ShoutyStatsService {
         }
     }
 
-    public String getRevenueForCustomer(int customerID) {
+    public String getRevenueForCustomer(String customerXml) {
         checkServiceConnection();
+        int customerID = extractCustomerId(customerXml);
         if (!revenueByCustomerId.containsKey(customerID))
             throw new ShoutyStatsServiceException("No customer found with ID '" + customerID + "'");
 
@@ -123,9 +124,7 @@ class ShoutyStatsService {
     }
 
     public String isValidCustomer(String customerXml) {
-        Document doc = XmlHelper.parse(customerXml);
-
-        int id = Integer.parseInt(doc.getDocumentElement().getAttribute("id"));
+        int id = extractCustomerId(customerXml);
 
         if (revenueByCustomerId.containsKey(id)) {
             return "<booleanResponse result=\"TRUE\" />";
@@ -180,6 +179,12 @@ class ShoutyStatsService {
                 "\" />";
     }
 
+    private int extractCustomerId(String xml) {
+      Document doc = XmlHelper.parse(xml);
+
+      return Integer.parseInt(doc.getDocumentElement().getAttribute("id"));
+    }
+
     private String createKey(int year, int month) {
         return String.format("%04d-%02d", year, month);
     }
@@ -207,7 +212,4 @@ class ShoutyStatsService {
         if (parityControl == 1)
             throw new ShoutyStatsServiceException("shouty.reporting.ShoutyStatsService connection error - please wait a few moments and try your request again");
     }
-}
-
-public class zzz_DoNotReadMe {
 }

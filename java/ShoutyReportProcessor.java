@@ -17,7 +17,8 @@ class ShoutyReportProcessor {
         doc.appendChild(ecoReport);
 
         for (MileageClaim claim : mileageClaims) {
-            String responseXml = statsService.getRevenueForCustomer(claim.customerID);
+            String requestXml = "<Customer id=\"" + claim.customerID + "\"/>";
+            String responseXml = statsService.getRevenueForCustomer(requestXml);
             Document responseDocument = XmlHelper.parse(responseXml);
 
             double revenue = Double.parseDouble(responseDocument.getDocumentElement().getAttribute("revenue"));
