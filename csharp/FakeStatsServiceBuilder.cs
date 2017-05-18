@@ -5,10 +5,12 @@ public class FakeStatsServiceBuilder
     private string defaultCustomerData = "19,123456.78;22,123456.78;57,123456.78";
     private Dictionary<int, double> builderData = null;
 
-    public IStatsService build() {
+    public IStatsService Build() 
+    {
         string initialisationData = "";
 
-        if (builderData == null) {
+        if (builderData == null)
+        {
             initialisationData = defaultCustomerData;
         } else {
             string separator = "";
@@ -22,7 +24,7 @@ public class FakeStatsServiceBuilder
         return new FakeStatsService(initialisationData);
     }
 
-    public FakeStatsServiceBuilder withCustomerRevenue(int id, double revenue)
+    public FakeStatsServiceBuilder WithCustomerRevenue(int id, double revenue)
     {
         if (builderData == null)
         {

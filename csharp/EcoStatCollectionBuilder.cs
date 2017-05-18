@@ -11,10 +11,14 @@ public class EcoStatCollectionBuilder
 
     private Dictionary<string, float> ecoStatData = null;
 
-    public List<EcoStat> build() {
-        if (ecoStatData == null) {
+    public List<EcoStat> Build()
+    {
+        if (ecoStatData == null)
+        {
             return defaultEcoStatCollection;
-        } else {
+        }
+        else
+        {
             List<EcoStat> ecoStatCollection = new List<EcoStat>();
 
             foreach(KeyValuePair<string, float> entry in ecoStatData)
@@ -26,8 +30,10 @@ public class EcoStatCollectionBuilder
         }
     }
 
-    public EcoStatCollectionBuilder withSalesPersonRpm(string name, float rpm) {
-        if (ecoStatData == null){
+    public EcoStatCollectionBuilder WithSalesPersonRpm(string name, float rpm)
+    {
+        if (ecoStatData == null)
+        {
             ecoStatData = new Dictionary<string, float>();
         }
 

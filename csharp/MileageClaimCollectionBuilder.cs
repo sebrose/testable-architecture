@@ -3,7 +3,8 @@ using System.Collections.Generic;
 public class MileageClaimCollectionBuilder
 {
     private List<MileageClaim> defaultMileageClaimCollection =
-        new List<MileageClaim>(){
+        new List<MileageClaim>()
+        {
             new MileageClaim("David Allen", 130000, 57),
             new MileageClaim("Lisa Crispin", 27000, 19),
             new MileageClaim("Ian Dees", 19238855, 22)
@@ -11,20 +12,26 @@ public class MileageClaimCollectionBuilder
 
     private List<MileageClaim> mileageClaimCollection = null;
 
-    public List<MileageClaim> build() {
-        if (mileageClaimCollection == null) {
+    public List<MileageClaim> Build()
+    {
+        if (mileageClaimCollection == null)
+        {
             return defaultMileageClaimCollection;
-        } else {
+        }
+        else
+        {
             return mileageClaimCollection;
         }
     }
 
-    public MileageClaimCollectionBuilder withSalesPersonMilesForCustomer(
+    public MileageClaimCollectionBuilder WithSalesPersonMilesForCustomer(
       string name,
       int miles,
-      int id) {
+      int id)
+    {
 
-        if (mileageClaimCollection == null){
+        if (mileageClaimCollection == null)
+        {
             mileageClaimCollection = new List<MileageClaim>();
         }
 
