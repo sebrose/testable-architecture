@@ -10,7 +10,7 @@ namespace shouty_report
 class fake_stats_service_builder
 {
 public:
-    stats_service build() const;
+    fake_stats_service build() const;
 
     fake_stats_service_builder & with_customer_revenue(
         int id,

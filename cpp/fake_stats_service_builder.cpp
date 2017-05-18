@@ -4,7 +4,7 @@
 
 namespace shouty_report
 {
-    stats_service fake_stats_service_builder::build() const
+    fake_stats_service fake_stats_service_builder::build() const
     {
         if (builder_data.size() == 0)
         {
