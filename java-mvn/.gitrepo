@@ -1,0 +1,11 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:cucumber-ltd/testable-architecture-java.git
+	branch = master
+	commit = 1e3f60b6ebb7efdb00b86c92f1b8825ef6cabe79
+	parent = 51bada6b8c6fc784f055f5ffd6dde0c20b29b761
+	cmdver = 0.3.1

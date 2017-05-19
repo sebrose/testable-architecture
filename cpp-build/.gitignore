@@ -1,0 +1,6 @@
+*.o
+report.xml
+e2e
+contract
+unit
+shouty_report_job

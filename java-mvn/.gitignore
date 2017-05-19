@@ -1,0 +1,6 @@
+target
+report.xml
+.idea
+*.iml
+*.jar
+*.class
