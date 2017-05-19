@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoutyReport.ConsoleApp", "ShoutyReportJob\ShoutyReport.ConsoleApp.csproj", "{7EB0689C-0E39-42E7-A642-2439593FB351}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoutyReport.Tests", "ShoutyReportJobTest\ShoutyReport.Tests.csproj", "{F7C47D79-6CEF-476E-8CC5-D5F80CC7B726}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoutyStatsService", "ShoutyStatsService\ShoutyStatsService.csproj", "{4B1EAB80-6616-47E3-AA0B-987CBB30D2F5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7EB0689C-0E39-42E7-A642-2439593FB351}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EB0689C-0E39-42E7-A642-2439593FB351}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EB0689C-0E39-42E7-A642-2439593FB351}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EB0689C-0E39-42E7-A642-2439593FB351}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7C47D79-6CEF-476E-8CC5-D5F80CC7B726}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7C47D79-6CEF-476E-8CC5-D5F80CC7B726}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7C47D79-6CEF-476E-8CC5-D5F80CC7B726}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7C47D79-6CEF-476E-8CC5-D5F80CC7B726}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B1EAB80-6616-47E3-AA0B-987CBB30D2F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B1EAB80-6616-47E3-AA0B-987CBB30D2F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B1EAB80-6616-47E3-AA0B-987CBB30D2F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B1EAB80-6616-47E3-AA0B-987CBB30D2F5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
